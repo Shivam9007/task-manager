@@ -23,10 +23,9 @@ app.get("/", (req, res) => {
     res.send("API is running 🚀");
 });
 
-// --- GLOBAL ERROR HANDLER (must be last) ---
-// Ensures CORS headers are always present, even on crashes
+// ---- GLOBAL ERROR HANDLER (must be last) ----
 app.use((err, req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+    res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
     console.error("Server Error:", err.stack);
     res.status(500).json({ message: err.message || "Internal Server Error" });
 });
